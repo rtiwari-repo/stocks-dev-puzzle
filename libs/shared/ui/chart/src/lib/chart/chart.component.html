@@ -1,5 +1,5 @@
 <google-chart
-  *ngIf="data"
+  *ngIf="this.data$ | async"
   [title]="chart.title"
   [type]="chart.type"
   [data]="chartData"
