@@ -1,5 +1,11 @@
+<span
+  class="error-msg"
+  *ngIf="chartData && chartData.length === 0">
+  No Data Found!
+</span>
+
 <google-chart
-  *ngIf="data"
+  *ngIf="chartData && chartData.length > 0"
   [title]="chart.title"
   [type]="chart.type"
   [data]="chartData"
