@@ -1,5 +1,15 @@
+<span
+  class="error-msg"
+  *ngIf="chartData && chartData.length === 0 && !invalidDateRange">
+  No Data found for either this symbol or date range!
+</span>
+<span
+  class="error-msg"
+  *ngIf="chartData && chartData.length === 0 && invalidDateRange">
+  "to" date cannot be less than "from" date, please select valid date range! (****setting the date as current date in this case****)
+</span>
 <google-chart
-  *ngIf="data"
+  *ngIf="chartData && chartData.length > 0"
   [title]="chart.title"
   [type]="chart.type"
   [data]="chartData"

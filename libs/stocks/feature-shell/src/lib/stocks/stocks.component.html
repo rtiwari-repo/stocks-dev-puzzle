@@ -1,5 +1,6 @@
 <form [formGroup]="stockPickerForm">
   <mat-form-field>
+    <mat-label>Symbol</mat-label>
     <input
       matInput
       placeholder="Symbol e.g AAPL"
@@ -19,7 +20,7 @@
 
   <mat-form-field>
     <mat-label>Favorite time period</mat-label>
-    <mat-select formControlName="period">
+    <mat-select formControlName="period" (selectionChange)="callDatePicker($event)">
       <mat-option
         *ngFor="let timePeriod of timePeriods"
         [value]="timePeriod.value"
@@ -29,7 +30,36 @@
     </mat-select>
   </mat-form-field>
 
-  <button (click)="fetchQuote()" mat-raised-button>Go</button>
+  <div *ngIf="showDatePicker">
+    <mat-form-field>
+      <mat-label>from</mat-label>
+      <input matInput
+             [min]="minDate"
+             [max]="maxDate"
+             [matDatepicker]="fromDatePicker"
+             formControlName="fromDate"
+             [readonly]="true"
+             (dateChange)="setFromDate($event)"
+             (click)="fromDatePicker.open()">
+      <mat-datepicker-toggle  matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #fromDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>to</mat-label>
+      <input matInput
+             [min]="minDate"
+             [max]="maxDate"
+             [matDatepicker]="toDatePicker"
+             formControlName="toDate"
+             [readonly]="true"
+             (dateChange)="setToDate($event)"
+             (click)="toDatePicker.open()">
+      <mat-datepicker-toggle  matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #toDatePicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
 </form>
 
-<coding-challenge-chart [data$]="quotes$"></coding-challenge-chart>
+<coding-challenge-chart [invalidDateRange]="invalidDateRange"  [chartData]="chartData"></coding-challenge-chart>
