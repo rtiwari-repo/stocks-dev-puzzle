@@ -34,7 +34,7 @@ export class PriceQueryEffects {
       },
 
       onError: (action: FetchPriceQuery, error) => {
-        return new PriceQueryFetchError(error);
+        return new PriceQueryFetched(null);
       }
     }
   );
